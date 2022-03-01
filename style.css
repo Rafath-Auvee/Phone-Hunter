@@ -10,5 +10,9 @@ font-family: 'Poppins',
 sans-serif; */
 
 * {
-    font-family: 'Inter', sans-serif
+    font-family: 'Manrope', sans-serif;
+}
+
+#spinner {
+    display: none;
 }

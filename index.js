@@ -1,6 +1,12 @@
 document.getElementById('error-message').style.display = 'none';
 
+
+const spinnerToggle = toggle => {
+    document.getElementById('spinner').style.display = toggle
+}
+
 const phoneSearch = () => {
+    spinnerToggle('block')
     input_text = document.getElementById("input-text").value.toLowerCase()
     input_text.value = '';
     if (input_text == "") {
@@ -8,6 +14,7 @@ const phoneSearch = () => {
     } else {
 
         console.log(input_text)
+        document.getElementById('error-message').style.display = 'none';
         const url = `https://openapi.programming-hero.com/api/phones?search=${input_text}`;
         fetch(url)
             .then(res => res.json())
@@ -48,9 +55,11 @@ const resultList = phones => {
         `;
         searchResult.appendChild(div);
     })
+    spinnerToggle('none')
 }
 
 const phoneDetailsfetch = phoneID => {
+    spinnerToggle('block')
     const url = `https://openapi.programming-hero.com/api/phone/${phoneID}`;
     fetch(url)
         .then(res => res.json())
@@ -82,13 +91,41 @@ const phonefulldetails = phone => {
                 // console.log(key)
                 // console.log(value)
         }
-        // <p class="card-text ">Bluetooth: ${others.Bluetooth}</p>
-        // <p class="card-text ">GPS ${others.GPS}</p>
-        // <p class="card-text ">NFC: ${others.NFC}</p>
-        // <p class="card-text ">Radio: ${others.Radio}</p>
-        // <p class="card-text ">USB: ${others.USB}</p>
-        // <p class="card-text ">WLAN: ${others.WLAN}</p>
-        // <p class="card-text ">WLAN: ${others}</p>
+
+    if (phone.releaseDate == '' || phone.releaseDate == undefined) {
+        phone.releaseDate = "Not published yet"
+    }
+    if (phone.brand == '' || phone.brand == undefined) {
+        phone.brand = "Not published yet"
+    }
+    if (mainFeatures.chipSet == '' || mainFeatures.chipSet == undefined) {
+        mainFeatures.chipSet = "Not published yet"
+    }
+    if (mainFeatures.storage == '' || mainFeatures.storage == undefined) {
+        mainFeatures.storage = "Not published yet"
+    }
+    if (mainFeatures.displaySize == '' || mainFeatures.displaySize == undefined) {
+        mainFeatures.displaySize = "Not published yet"
+    }
+    if (mainFeatures.memory == '' || mainFeatures.memory == undefined) {
+        mainFeatures.memory = "Not published yet"
+    }
+    if (sensor == '' || sensor == undefined) {
+        sensor = "Not published yet"
+    }
+    if (phone.name == '' || phone.name == undefined) {
+        phone.name = "Not published yet"
+    }
+    if (phone.releaseDate == '' || phone.releaseDate == undefined) {
+        phone.releaseDate = "Not published yet"
+    }
+    // <p class="card-text ">Bluetooth: ${others.Bluetooth}</p>
+    // <p class="card-text ">GPS ${others.GPS}</p>
+    // <p class="card-text ">NFC: ${others.NFC}</p>
+    // <p class="card-text ">Radio: ${others.Radio}</p>
+    // <p class="card-text ">USB: ${others.USB}</p>
+    // <p class="card-text ">WLAN: ${others.WLAN}</p>
+    // <p class="card-text ">WLAN: ${others}</p>
     phoneDetails.textContent = '';
     console.log(sensor);
     // div.classList.add('card');
@@ -116,4 +153,5 @@ const phonefulldetails = phone => {
     div.lastElementChild.lastElementChild.appendChild(p1)
         // console.log('this is: ', div.lastChild)
     phoneDetails.appendChild(div);
+    spinnerToggle('none')
 }
