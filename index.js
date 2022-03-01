@@ -1,33 +1,38 @@
+//Now showing the error message
+
 document.getElementById('error-message').style.display = 'none';
 
-
+// Toggle Spinner Code 
 const spinnerToggle = toggle => {
     document.getElementById('spinner').style.display = toggle
 }
 
+// Fetching Api in json
 const phoneSearch = () => {
-    spinnerToggle('block')
-    input_text = document.getElementById("input-text").value.toLowerCase()
-    input_text.value = '';
-    if (input_text == "") {
-        document.getElementById('error-message').style.display = 'block';
-    } else {
+        spinnerToggle('block')
+        input_text = document.getElementById("input-text").value.toLowerCase()
+        input_text.value = '';
+        if (input_text == "") {
+            document.getElementById('error-message').style.display = 'block';
+        } else {
 
-        console.log(input_text)
-        document.getElementById('error-message').style.display = 'none';
-        const url = `https://openapi.programming-hero.com/api/phones?search=${input_text}`;
-        fetch(url)
-            .then(res => res.json())
-            .then(data => resultList(data.data))
-            .catch(error => displayError(error));
+            console.log(input_text)
+            document.getElementById('error-message').style.display = 'none';
+            const url = `https://openapi.programming-hero.com/api/phones?search=${input_text}`;
+            fetch(url)
+                .then(res => res.json())
+                .then(data => resultList(data.data))
+                .catch(error => displayError(error));
+        }
     }
-}
-
+    // display error message
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
 
 }
 
+
+// showing only 20 phones in the search 
 const resultList = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
@@ -38,12 +43,12 @@ const resultList = phones => {
         document.getElementById('error-message').style.display = 'block';
     }
     phones.forEach(phone => {
-        // console.log(phone)
-        const phoneDetails = document.getElementById('phone-full-details');
-        phoneDetails.textContent = '';
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
+            // console.log(phone)
+            const phoneDetails = document.getElementById('phone-full-details');
+            phoneDetails.textContent = '';
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
         <div class="card h-100 bg-secondary bg-opacity-10">
             <img src="${phone.image}" class="card-img-top w-50 mx-auto mt-3 " alt="...">
             <div class="card-body mx-auto text-center">
@@ -53,11 +58,14 @@ const resultList = phones => {
             </div>
         </div>
         `;
-        searchResult.appendChild(div);
-    })
+            searchResult.appendChild(div);
+        })
+        // toggling spinner code 
     spinnerToggle('none')
 }
 
+
+// fetching details of specific phones by phoneID
 const phoneDetailsfetch = phoneID => {
     spinnerToggle('block')
     const url = `https://openapi.programming-hero.com/api/phone/${phoneID}`;
@@ -66,7 +74,7 @@ const phoneDetailsfetch = phoneID => {
         .then(data => phonefulldetails(data.data));
 }
 
-
+// showing details of specific phones
 const phonefulldetails = phone => {
     const phoneDetails = document.getElementById('phone-full-details');
     const others = phone.others
@@ -78,6 +86,7 @@ const phonefulldetails = phone => {
     // p1.classList.add('card-text')
     p1.className = "card-text";
 
+    // looping all other objects
 
     if (phone.others != undefined)
         for (const [key, value] of Object.entries(phone.others)) {
@@ -91,6 +100,7 @@ const phonefulldetails = phone => {
                 // console.log(key)
                 // console.log(value)
         }
+        // condition  for checking phone undefined or empty string
 
     if (phone.releaseDate == '' || phone.releaseDate == undefined) {
         phone.releaseDate = "Not published yet"
@@ -126,10 +136,13 @@ const phonefulldetails = phone => {
     // <p class="card-text ">USB: ${others.USB}</p>
     // <p class="card-text ">WLAN: ${others.WLAN}</p>
     // <p class="card-text ">WLAN: ${others}</p>
+
+    // clearing canvus 
     phoneDetails.textContent = '';
     console.log(sensor);
     // div.classList.add('card');
 
+    // displaying details of phone 
     const div = document.createElement('div');
     div.innerHTML = `
     <div class = "card mt-5 mb-4 bg-success bg-opacity-10">
@@ -153,5 +166,7 @@ const phonefulldetails = phone => {
     div.lastElementChild.lastElementChild.appendChild(p1)
         // console.log('this is: ', div.lastChild)
     phoneDetails.appendChild(div);
+
+    // toggling spinner code 
     spinnerToggle('none')
 }
