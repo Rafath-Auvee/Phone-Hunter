@@ -28,6 +28,9 @@ const phoneSearch = () => {
     // display error message
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
+    // document.getElementById('phone-full-details').textContent = '';
+    // document.getElementById('search-result').textContent = '';
+
 
 }
 
@@ -36,7 +39,7 @@ const displayError = error => {
 const resultList = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-
+    document.getElementById('phone-full-details').textContent = ''
     phones = phones.slice(0, 20);
 
     if (phones.length == 0) {
@@ -77,6 +80,7 @@ const phoneDetailsfetch = phoneID => {
 // showing details of specific phones
 const phonefulldetails = phone => {
     const phoneDetails = document.getElementById('phone-full-details');
+    phoneDetails.textContent = '';
     const others = phone.others
     const mainFeatures = phone.mainFeatures
 
@@ -138,7 +142,6 @@ const phonefulldetails = phone => {
     // <p class="card-text ">WLAN: ${others}</p>
 
     // clearing canvus 
-    phoneDetails.textContent = '';
     console.log(sensor);
     // div.classList.add('card');
 
