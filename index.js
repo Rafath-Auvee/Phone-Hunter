@@ -13,6 +13,9 @@ const phoneSearch = () => {
         input_text = document.getElementById("input-text").value.toLowerCase()
         input_text.value = '';
         if (input_text == "") {
+            document.getElementById('phone-full-details').textContent = '';
+            document.getElementById('search-result').textContent = '';
+            spinnerToggle('none')
             document.getElementById('error-message').style.display = 'block';
         } else {
 
@@ -28,8 +31,7 @@ const phoneSearch = () => {
     // display error message
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
-    // document.getElementById('phone-full-details').textContent = '';
-    // document.getElementById('search-result').textContent = '';
+
 
 
 }
@@ -55,8 +57,8 @@ const resultList = phones => {
         <div class="card h-100 bg-secondary bg-opacity-10">
             <img src="${phone.image}" class="card-img-top w-50 mx-auto mt-3 " alt="...">
             <div class="card-body mx-auto text-center">
-                <h5 class="card-title fs-3">${phone.phone_name}</h5>
-                <p class="card-text fs-4">Brand Name: ${phone.brand}</p>
+                <h5 class="card-title fs-5">${phone.phone_name}</h5>
+                <p class="card-text fs-6">Brand Name: ${phone.brand}</p>
                 <button type="button" onclick="phoneDetailsfetch('${phone.slug}')" class="btn btn-info">Show Details</button>
             </div>
         </div>
@@ -154,7 +156,7 @@ const phonefulldetails = phone => {
         
             <h5 class="card-title">Phone Name: ${phone.name}</h5>
             <p class="card-text mb-5">Brand Name: ${phone.brand}</p>
-            <h5 class="card-title fs-2 text-bold">Features</h5>
+            <h5 class="card-title fs-5 text-bold">Features</h5>
             <p class="card-text ">Chip Set: ${mainFeatures.chipSet}</p>
             <p class="card-text ">Storage: ${mainFeatures.storage}</p>
             <p class="card-text ">Display Size: ${mainFeatures.displaySize}</p>
