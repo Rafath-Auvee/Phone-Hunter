@@ -10,7 +10,7 @@ const spinnerToggle = toggle => {
 // Fetching Api in json
 const phoneSearch = () => {
         spinnerToggle('block')
-        input_text = document.getElementById("input-text").value.toLowerCase()
+        input_text = document.getElementById("input-text").value.toLowerCase().trim()
         input_text.value = '';
         if (input_text == "") {
             document.getElementById('phone-full-details').textContent = '';
