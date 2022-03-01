@@ -6,6 +6,7 @@ const phoneSearch = () => {
     if (input_text == "") {
         document.getElementById('error-message').style.display = 'block';
     } else {
+
         console.log(input_text)
         const url = `https://openapi.programming-hero.com/api/phones?search=${input_text}`;
         fetch(url)
@@ -17,16 +18,22 @@ const phoneSearch = () => {
 
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
+
 }
 
 const resultList = phones => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
+
+    phones = phones.slice(0, 20);
+
     if (phones.length == 0) {
         document.getElementById('error-message').style.display = 'block';
     }
     phones.forEach(phone => {
         console.log(phone)
+        const phoneDetails = document.getElementById('phone-full-details');
+        phoneDetails.textContent = '';
         const div = document.createElement('div');
         div.classList.add('col');
         div.innerHTML = `
@@ -54,6 +61,8 @@ const phoneDetailsfetch = phoneID => {
 const phonefulldetails = phone => {
     console.log(phone);
     const phoneDetails = document.getElementById('phone-full-details');
+    const other = phone.others
+    phoneDetails.textContent = '';
     const div = document.createElement('div');
     // div.classList.add('card');
     div.innerHTML = `
@@ -62,8 +71,12 @@ const phonefulldetails = phone => {
         <div class="card-body">
             <h5 class="card-title">Phone Name: ${phone.name}</h5>
             <p class="card-text mb-5">Brand Name: ${phone.brand}</p>
-            <p class="card-text mb-5">Chip Set: ${phone.mainFeatures.chipSet}</p>
-            <p class="card-text mb-5">Release Date: ${phone.releaseDate}</p>
+            <p class="card-text ">Chip Set: ${phone.mainFeatures.chipSet}</p>
+            <p class="card-text ">Storage: ${phone.mainFeatures.storage}</p>
+            <p class="card-text ">Display Size: ${phone.mainFeatures.displaySize}</p>
+            <p class="card-text ">Memory: ${phone.mainFeatures.memory}</p>
+            <p class="card-text ">Bluetooth: ${other.Bluetooth}</p>
+            <p class="card-text ">Release Date: ${phone.releaseDate}</p>
             
         </div>
     </div>
