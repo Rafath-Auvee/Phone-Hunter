@@ -72,7 +72,7 @@ const phonefulldetails = phone => {
 
     if (phone.others != undefined)
         for (const [key, value] of Object.entries(phone.others)) {
-            const p = document.createTextNode(`${key} : ${value};`);
+            const p = document.createTextNode(`${key} : ${value}`);
             // var text = document.createTextNode("\n");
             var br = document.createElement("br");
             p1.appendChild(p)
@@ -98,8 +98,10 @@ const phonefulldetails = phone => {
     <div class = "card mt-5 mb-4 bg-success bg-opacity-10">
         <img src="${phone.image}" class="card-img-top w-50 mx-auto mt-5" alt="...">
         <div class="card-body">
+        
             <h5 class="card-title">Phone Name: ${phone.name}</h5>
             <p class="card-text mb-5">Brand Name: ${phone.brand}</p>
+            <h5 class="card-title fs-2 text-bold">Features</h5>
             <p class="card-text ">Chip Set: ${mainFeatures.chipSet}</p>
             <p class="card-text ">Storage: ${mainFeatures.storage}</p>
             <p class="card-text ">Display Size: ${mainFeatures.displaySize}</p>
