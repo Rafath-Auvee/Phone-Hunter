@@ -1,11 +1,17 @@
 //Now showing the error message
 
 document.getElementById('error-message').style.display = 'none';
-
-// Toggle Spinner Code 
+document.getElementById('seemore').style.display = 'none'
+    // Toggle Spinner Code 
 const spinnerToggle = toggle => {
     document.getElementById('spinner').style.display = toggle
 }
+
+const showAll = toggleAll => {
+    document.getElementById('seemore').style.display = toggleAll
+}
+
+
 
 // Fetching Api in json
 const phoneSearch = () => {
@@ -24,30 +30,29 @@ const phoneSearch = () => {
             const url = `https://openapi.programming-hero.com/api/phones?search=${input_text}`;
             fetch(url)
                 .then(res => res.json())
-                .then(data => resultList(data.data))
+                .then(data => resultList(data.data, 20))
                 .catch(error => displayError(error));
         }
     }
     // display error message
 const displayError = error => {
     document.getElementById('error-message').style.display = 'block';
-
-
-
+    document.getElementById('seemore').style.display = 'none';
 }
 
 
 // showing only 20 phones in the search 
-const resultList = phones => {
+const resultList = (phones, num) => {
     const searchResult = document.getElementById('search-result');
     searchResult.textContent = '';
-    document.getElementById('phone-full-details').textContent = ''
-    phones = phones.slice(0, 20);
-
+    document.getElementById('phone-full-details').style.display = 'none'
+    phones = phones.slice(0, num);
+    console.log(phones.length)
     if (phones.length == 0) {
         document.getElementById('error-message').style.display = 'block';
-    }
-    phones.forEach(phone => {
+        document.getElementById('seemore').style.display = 'none'
+    } else {
+        phones.forEach(phone => {
             // console.log(phone)
             const phoneDetails = document.getElementById('phone-full-details');
             phoneDetails.textContent = '';
@@ -65,7 +70,9 @@ const resultList = phones => {
         `;
             searchResult.appendChild(div);
         })
-        // toggling spinner code 
+        document.getElementById('seemore').style.display = 'block'
+    }
+
     spinnerToggle('none')
 }
 
